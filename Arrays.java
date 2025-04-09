@@ -51,6 +51,10 @@ public class Arrays {
         return size - 1;
     }
 
+    public static void checkSize(int size) {
+        System.out.println("Current number of elements in the array: " + size);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[] arr = new int[10];
@@ -69,7 +73,8 @@ public class Arrays {
             System.out.println("1. Display Array");
             System.out.println("2. Insert Element");
             System.out.println("3. Delete Element");
-            System.out.println("4. Exit");
+            System.out.println("4. Check Array Size");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -84,6 +89,9 @@ public class Arrays {
                     size = deleteElement(arr, size, sc);
                     break;
                 case 4:
+                    checkSize(size);
+                    break;
+                case 5:
                     System.out.println("Exiting...");
                     sc.close();
                     return;
