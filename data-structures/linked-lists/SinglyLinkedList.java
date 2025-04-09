@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class LinkedList {
+public class SinglyLinkedList {
     Node head;
     Scanner scanner = new Scanner(System.in);
 
@@ -226,7 +226,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
+        SinglyLinkedList list = new SinglyLinkedList();
         list.menu();
     }
 }
