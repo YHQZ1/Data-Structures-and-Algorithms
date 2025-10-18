@@ -14,16 +14,15 @@ Welcome to my **Data Structures and Algorithms** collection! This repository con
 │   ├── queues/
 │   ├── trees/
 │   ├── graphs/
-│   └── hash-tables/
-├── algorithms/
-│   ├── sorting/
-│   ├── searching/
-│   ├── dynamic-programming/
-│   ├── greedy/
-│   └── graph-algorithms/
-└── problems/
-    ├── leetcode/
-    └── hackerrank/
+│   └── hashing/
+└── algorithms/
+    ├── sorting/
+    ├── searching/
+    ├── dynamic-programming/
+    ├── greedy/
+    ├── tree-algorithms/
+    └── graph-algorithms/
+
 ```
 
 ---
@@ -52,8 +51,8 @@ Whether you're revising concepts or looking for implementation references, this 
 Clone the repository to explore or run the code locally:
 
 ```bash
-git clone https://github.com/yourusername/data-structures-algorithms.git
-cd data-structures-algorithms
+git clone https://github.com/your-username/Data-Structures-and-Algorithms.git
+cd Data-Structures-and-Algorithms
 ```
 
 Feel free to navigate the folders and try out the implementations on your own.
@@ -78,7 +77,7 @@ If you’d like to contribute:
 Feel free to reach out for feedback, collaboration, or just to connect:
 
 - GitHub: https://github.com/YHQZ1
-- LinkedIn: https://www.linkedin.com/in/uttkarsh-r-293920285/
+- LinkedIn: https://www.linkedin.com/in/uttkarsh-ruparel/
 - Email: rupareluttkarsh2309@gmail.com
 
 ---
