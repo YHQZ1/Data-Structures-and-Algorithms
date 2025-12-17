@@ -48,8 +48,9 @@ public class TreeBFS {
     System.out.println("Enter tree nodes (preorder), -1 for null:");
     Node root = buildTree(sc);
 
-    System.out.println("BFS Traversal:");
+    System.out.print("BFS Traversal: ");
     bfs(root);
+    System.out.println();
 
     sc.close();
   }

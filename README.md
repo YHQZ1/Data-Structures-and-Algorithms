@@ -1,83 +1,203 @@
-## 🧠 Data Structures and Algorithms Repository
+# Data Structures and Algorithms (Java)
 
-Welcome to my **Data Structures and Algorithms** collection! This repository contains well-organized implementations of various data structures and algorithms that I’ve studied, practiced, and refined. It serves as a comprehensive reference for interview preparation, competitive programming, and academic study.
+This repository contains a comprehensive and systematically built collection of **Data Structures and Algorithms implemented in Java**.
+It follows a fundamentals-first approach with a strong emphasis on **correctness, clarity, and conceptual depth**, and is intended as a complete reference for DSA learning and interview preparation.
+
+All implementations are written from scratch (where appropriate) and organized by concept to make the learning progression explicit and easy to follow.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
+.
 ├── data-structures/
 │   ├── arrays/
 │   ├── linked-lists/
+│   │   ├── SinglyLinkedList
+│   │   └── DoublyLinkedList
 │   ├── stacks/
 │   ├── queues/
+│   ├── deques/
 │   ├── trees/
+│   │   ├── BinaryTree
+│   │   ├── BinarySearchTree
+│   │   └── AVLTree
+│   ├── tries/
 │   ├── graphs/
-│   └── hashing/
+│   │   ├── AdjacencyList
+│   │   └── AdjacencyMatrix
+│   ├── hashing/
+│   │   ├── HashSet (custom)
+│   │   └── HashMap (custom)
+│   └── heaps/
+│       ├── MinHeap
+│       ├── MaxHeap
+│       └── PriorityQueue
+│
 └── algorithms/
-    ├── sorting/
     ├── searching/
+    │   ├── LinearSearch
+    │   └── BinarySearch
+    ├── sorting/
+    │   ├── BubbleSort
+    │   ├── SelectionSort
+    │   ├── InsertionSort
+    │   ├── MergeSort
+    │   ├── QuickSort
+    │   └── HeapSort
     ├── dynamic-programming/
     ├── greedy/
     ├── tree-algorithms/
+    │   ├── TreeDFS
+    │   └── TreeBFS
     └── graph-algorithms/
-
+        ├── GraphDFS
+        ├── GraphBFS
+        ├── Dijkstra
+        ├── BellmanFord
+        ├── FloydWarshall
+        ├── PrimsMST
+        └── KruskalsMST
 ```
 
 ---
 
-## 🎯 Purpose
+## Coverage Overview
 
-This repository is designed to:
+### Data Structures
 
-- Reinforce my understanding of core computer science concepts
-- Provide clean, modular, and well-documented code examples
-- Include analysis of **time** and **space complexity**
-- Offer example usage or test cases for each implementation
+- Arrays
+- Singly and Doubly Linked Lists
+- Stack (linked list implementation)
+- Queue (linked list implementation)
+- Deque (double-ended queue)
+- Binary Tree
+- Binary Search Tree
+- AVL Tree (self-balancing BST)
+- Trie (Prefix Tree)
+- Graph representations
 
-Whether you're revising concepts or looking for implementation references, this repo is here to help!
+  - Adjacency List
+  - Adjacency Matrix
+
+- Hashing
+
+  - Custom HashSet
+  - Custom HashMap
+
+- Heaps
+
+  - Min Heap
+  - Max Heap
+  - Priority Queue
 
 ---
 
-## 💻 Languages Used
+### Algorithms
 
-- **Primary:** Java  
+#### Searching
+
+- Linear Search
+- Binary Search
+
+#### Sorting
+
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
+- Merge Sort
+- Quick Sort
+- Heap Sort
+
+#### Dynamic Programming
+
+- Fibonacci (memoization, tabulation, space optimization)
+- Climbing Stairs
+- House Robber
+- Coin Change
+- 0/1 Knapsack
+- Longest Increasing Subsequence (LIS)
+- Longest Common Subsequence (LCS)
+
+#### Greedy Algorithms
+
+- Activity Selection
+- Fractional Knapsack
+- Job Sequencing with Deadlines
+
+#### Tree Algorithms
+
+- Depth First Search (DFS)
+- Breadth First Search (BFS)
+
+#### Graph Algorithms
+
+- Depth First Search (DFS)
+- Breadth First Search (BFS)
+- Dijkstra’s Algorithm
+- Bellman–Ford Algorithm
+- Floyd–Warshall Algorithm
+- Prim’s Minimum Spanning Tree
+- Kruskal’s Minimum Spanning Tree
 
 ---
 
-## 🚀 Getting Started
+## Design Philosophy
 
-Clone the repository to explore or run the code locally:
+- Emphasis on **manual implementations** over library abstractions
+- Clear separation between **data structures** and **algorithms**
+- Each concept implemented in isolation for clarity
+- Menu-driven and interactive programs where appropriate
+- Code written for **learning and understanding**, not micro-optimizations
+
+The goal of this repository is not to maximize the number of problems, but to deeply understand **patterns, principles, and internal mechanics**.
+
+---
+
+## Language and Tools
+
+- Language: Java
+- No external libraries used for core implementations
+- Compiled using standard Java tooling (`javac`, `java`)
+- Designed to run in a terminal-based environment
+
+---
+
+## Getting Started
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/Data-Structures-and-Algorithms.git
+git clone https://github.com/YHQZ1/Data-Structures-and-Algorithms.git
 cd Data-Structures-and-Algorithms
 ```
 
-Feel free to navigate the folders and try out the implementations on your own.
+Compile all Java files recursively:
+
+```bash
+javac $(find . -name "*.java")
+```
+
+Run a specific implementation:
+
+```bash
+cd data-structures/heaps
+java MinHeap
+```
 
 ---
 
-## 🤝 Contributing
+## Notes
 
-This is a personal learning project, but I’m open to suggestions and improvements!  
-If you’d like to contribute:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-name`)
-3. Commit your changes (`git commit -m 'Add your message'`)
-4. Push to the branch (`git push origin feature-name`)
-5. Open a **Pull Request**
+- Compiled `.class` files are excluded via `.gitignore`
+- This repository represents a **complete DSA foundation**
+- Additional problem-solving and optimization can be built on top of this base
 
 ---
 
-## 📬 Contact
+## Contact
 
-Feel free to reach out for feedback, collaboration, or just to connect:
-
-- GitHub: https://github.com/YHQZ1
-- LinkedIn: https://www.linkedin.com/in/uttkarsh-ruparel/
-- Email: rupareluttkarsh2309@gmail.com
-
----
+- GitHub: [https://github.com/YHQZ1](https://github.com/YHQZ1)
+- LinkedIn: [https://www.linkedin.com/in/uttkarsh-ruparel/](https://www.linkedin.com/in/uttkarsh-ruparel/)
+- Email: [rupareluttkarsh2309@gmail.com](mailto:rupareluttkarsh2309@gmail.com)

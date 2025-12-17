@@ -36,8 +36,9 @@ public class TreeDFS {
     System.out.println("Enter tree nodes (preorder), -1 for null:");
     Node root = buildTree(sc);
 
-    System.out.println("DFS Traversal:");
+    System.out.print("DFS Traversal: ");
     dfs(root);
+    System.out.println();
 
     sc.close();
   }
