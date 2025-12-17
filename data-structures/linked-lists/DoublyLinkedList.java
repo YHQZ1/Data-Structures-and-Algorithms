@@ -11,8 +11,6 @@ public class DoublyLinkedList {
 
 		Node(int data) {
 			this.data = data;
-			this.next = null;
-			this.prev = null;
 		}
 	}
 
@@ -20,8 +18,8 @@ public class DoublyLinkedList {
 		Node newNode = new Node(data);
 		if (head != null) {
 			head.prev = newNode;
+			newNode.next = head;
 		}
-		newNode.next = head;
 		head = newNode;
 	}
 
@@ -35,30 +33,32 @@ public class DoublyLinkedList {
 		while (temp.next != null) {
 			temp = temp.next;
 		}
-
 		temp.next = newNode;
 		newNode.prev = temp;
 	}
 
 	public void insertAtPosition(int data, int position) {
 		if (position < 1) {
-			System.out.println("Invalid position! Positions start from 1.");
+			System.out.println("Invalid position");
 			return;
 		}
-		Node newNode = new Node(data);
 		if (position == 1) {
 			insertAtBeginning(data);
 			return;
 		}
 		Node temp = head;
-		for (int i = 0; i < position - 1 && temp != null; i++) {
+		for (int i = 1; i < position - 1 && temp != null; i++) {
 			temp = temp.next;
 		}
-
-		if (temp == null || temp.next == null) {
+		if (temp == null) {
+			System.out.println("Position out of bounds");
+			return;
+		}
+		if (temp.next == null) {
 			insertAtEnd(data);
 			return;
 		}
+		Node newNode = new Node(data);
 		newNode.next = temp.next;
 		newNode.prev = temp;
 		temp.next.prev = newNode;
@@ -67,7 +67,7 @@ public class DoublyLinkedList {
 
 	public void deleteFromBeginning() {
 		if (head == null) {
-			System.out.println("List is empty!");
+			System.out.println("List is empty");
 			return;
 		}
 		head = head.next;
@@ -78,7 +78,11 @@ public class DoublyLinkedList {
 
 	public void deleteFromEnd() {
 		if (head == null) {
-			System.out.println("List is empty!");
+			System.out.println("List is empty");
+			return;
+		}
+		if (head.next == null) {
+			head = null;
 			return;
 		}
 		Node temp = head;
@@ -89,45 +93,43 @@ public class DoublyLinkedList {
 	}
 
 	public void deleteAtPosition(int position) {
-		if (position < 1) {
-			System.out.println("invalid position! Positions start from 1.");
+		if (position < 1 || head == null) {
+			System.out.println("Invalid position or empty list");
 			return;
 		}
 		if (position == 1) {
 			deleteFromBeginning();
 			return;
 		}
-
 		Node temp = head;
-		for (int i = 0; i < position && temp != null; i++) {
+		for (int i = 1; i < position && temp != null; i++) {
 			temp = temp.next;
 		}
-
 		if (temp == null) {
-			System.out.println("position out of bounds!");
+			System.out.println("Position out of bounds");
+			return;
 		}
 		if (temp.next == null) {
 			deleteFromEnd();
+			return;
 		}
-		if (temp.prev != null) {
-			temp.prev.next = temp.next;
-		}
+		temp.prev.next = temp.next;
+		temp.next.prev = temp.prev;
 	}
 
 	public boolean search(int value) {
 		Node temp = head;
 		while (temp != null) {
-			if (temp.data == value) {
+			if (temp.data == value)
 				return true;
-			}
 			temp = temp.next;
 		}
 		return false;
 	}
 
 	public void reverse() {
-		Node temp = null;
 		Node current = head;
+		Node temp = null;
 		while (current != null) {
 			temp = current.prev;
 			current.prev = current.next;
@@ -139,108 +141,64 @@ public class DoublyLinkedList {
 		}
 	}
 
-	public void update(int newValue, int position) {
-		if (head == null || position < 1) {
+	public void update(int position, int newValue) {
+		if (position < 1 || head == null) {
 			System.out.println("Invalid position or empty list");
 			return;
 		}
 		Node temp = head;
-		for (int i = 0; i < position - 1 && temp != null; i++) {
+		for (int i = 1; i < position && temp != null; i++) {
 			temp = temp.next;
 		}
 		if (temp == null) {
-			System.out.println("position out of bounds");
+			System.out.println("Position out of bounds");
 			return;
 		}
 		temp.data = newValue;
-		System.out.println("Updated value at position " + position + " to " + newValue);
+		System.out.println("Updated successfully");
 	}
 
 	public void printList() {
-		Node temp = head;
 		if (head == null) {
-			System.out.println("the list is empty");
+			System.out.println("List is empty");
 			return;
 		}
-		System.out.println("NULL <-");
+		System.out.print("NULL <- ");
+		Node temp = head;
 		while (temp != null) {
-			System.out.print(temp.data + "<->");
+			System.out.print(temp.data + " <-> ");
 			temp = temp.next;
 		}
-		System.out.print("NULL");
+		System.out.println("NULL");
 	}
 
 	public void menu() {
 		while (true) {
-			System.out.println("\n=== Doubly Linked List Operations ===");
-			System.out.println("1. Insert at Beginning");
-			System.out.println("2. Insert at End");
-			System.out.println("3. Insert at Specific Position");
-			System.out.println("4. Delete from Beginning");
-			System.out.println("5. Delete from End");
-			System.out.println("6. Delete from Specific Position");
-			System.out.println("7. Search an Element");
-			System.out.println("8. Reverse Linked List");
-			System.out.println("9. Display Linked List");
-			System.out.println("10. Update a Node");
-			System.out.println("11. Exit");
-			System.out.print("Enter your choice: ");
-
+			System.out.println("\n1.Insert Begin  2.Insert End  3.Insert Pos");
+			System.out.println("4.Delete Begin  5.Delete End  6.Delete Pos");
+			System.out.println("7.Search  8.Reverse  9.Display  10.Update  11.Exit");
 			int choice = sc.nextInt();
 			switch (choice) {
-				case 1:
-					System.out.print("Enter value to insert at beginning: ");
-					insertAtBeginning(sc.nextInt());
-					break;
-				case 2:
-					System.out.print("Enter value to insert at end: ");
-					insertAtEnd(sc.nextInt());
-					break;
-				case 3:
-					System.out.print("Enter value to insert: ");
-					int data = sc.nextInt();
-					System.out.print("Enter position to insert at: ");
-					insertAtPosition(data, sc.nextInt());
-					break;
-				case 4:
-					deleteFromBeginning();
-					break;
-				case 5:
-					deleteFromEnd();
-					break;
-				case 6:
-					System.out.print("Enter position to delete: ");
-					deleteAtPosition(sc.nextInt());
-					break;
-				case 7:
-					System.out.print("Enter value to search: ");
-					System.out.println(search(sc.nextInt()) ? "Element found!" : "Element not found!");
-					break;
-				case 8:
-					reverse();
-					System.out.println("Linked List reversed.");
-					break;
-				case 9:
-					printList();
-					break;
-				case 10:
-					System.out.print("Enter position to update: ");
-					int pos = sc.nextInt();
-					System.out.print("Enter new value: ");
-					update(pos, sc.nextInt());
-					break;
-				case 11:
-					System.out.println("Exiting program...");
+				case 1 -> insertAtBeginning(sc.nextInt());
+				case 2 -> insertAtEnd(sc.nextInt());
+				case 3 -> insertAtPosition(sc.nextInt(), sc.nextInt());
+				case 4 -> deleteFromBeginning();
+				case 5 -> deleteFromEnd();
+				case 6 -> deleteAtPosition(sc.nextInt());
+				case 7 -> System.out.println(search(sc.nextInt()));
+				case 8 -> reverse();
+				case 9 -> printList();
+				case 10 -> update(sc.nextInt(), sc.nextInt());
+				case 11 -> {
 					sc.close();
 					return;
-				default:
-					System.out.println("Invalid choice! Please try again.");
+				}
+				default -> System.out.println("Invalid choice");
 			}
 		}
 	}
 
 	public static void main(String[] args) {
-		DoublyLinkedList dll = new DoublyLinkedList();
-		dll.menu();
+		new DoublyLinkedList().menu();
 	}
 }

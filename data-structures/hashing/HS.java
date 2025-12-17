@@ -1,14 +1,124 @@
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Iterator;
 
 public class HS {
+
+	private static final int INITIAL_CAPACITY = 16;
+	private static final double LOAD_FACTOR = 0.75;
+
+	private LinkedList<Integer>[] buckets;
+	private int size;
+
+	public HS() {
+		buckets = new LinkedList[INITIAL_CAPACITY];
+		size = 0;
+	}
+
+	private int hash(int key) {
+		return Math.abs(key) % buckets.length;
+	}
+
+	public boolean add(int key) {
+		int index = hash(key);
+		if (buckets[index] == null) {
+			buckets[index] = new LinkedList<>();
+		}
+		if (buckets[index].contains(key)) {
+			return false;
+		}
+		buckets[index].add(key);
+		size++;
+		if ((double) size / buckets.length >= LOAD_FACTOR) {
+			resize();
+		}
+		return true;
+	}
+
+	public boolean remove(int key) {
+		int index = hash(key);
+		if (buckets[index] == null)
+			return false;
+		boolean removed = buckets[index].remove((Integer) key);
+		if (removed)
+			size--;
+		return removed;
+	}
+
+	public boolean contains(int key) {
+		int index = hash(key);
+		if (buckets[index] == null)
+			return false;
+		return buckets[index].contains(key);
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	public int size() {
+		return size;
+	}
+
+	public void clear() {
+		buckets = new LinkedList[INITIAL_CAPACITY];
+		size = 0;
+	}
+
+	public Integer[] toArray() {
+		Integer[] arr = new Integer[size];
+		int idx = 0;
+		for (LinkedList<Integer> bucket : buckets) {
+			if (bucket != null) {
+				for (int val : bucket) {
+					arr[idx++] = val;
+				}
+			}
+		}
+		return arr;
+	}
+
+	public HS cloneSet() {
+		HS newSet = new HS();
+		for (LinkedList<Integer> bucket : buckets) {
+			if (bucket != null) {
+				for (int val : bucket) {
+					newSet.add(val);
+				}
+			}
+		}
+		return newSet;
+	}
+
+	private void resize() {
+		LinkedList<Integer>[] oldBuckets = buckets;
+		buckets = new LinkedList[oldBuckets.length * 2];
+		size = 0;
+		for (LinkedList<Integer> bucket : oldBuckets) {
+			if (bucket != null) {
+				for (int key : bucket) {
+					add(key);
+				}
+			}
+		}
+	}
+
+	public void display() {
+		System.out.print("Set elements: ");
+		for (LinkedList<Integer> bucket : buckets) {
+			if (bucket != null) {
+				for (int val : bucket) {
+					System.out.print(val + " ");
+				}
+			}
+		}
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		HashSet<Integer> set = new HashSet<>();
+		HS set = new HS();
 		boolean exit = false;
 
-		System.out.println(("Enter your choice: "));
 		while (!exit) {
 			System.out.println("\nChoose an operation:");
 			System.out.println("1. Add element");
@@ -19,102 +129,64 @@ public class HS {
 			System.out.println("6. Get set size");
 			System.out.println("7. Clone set");
 			System.out.println("8. Convert to array");
-			System.out.println("9. Remove elements in bulk");
-			System.out.println("10. Clear set");
-			System.out.println("11. Iterate using enhanced for-loop");
-			System.out.println("12. Iterate using Iterator");
-			System.out.println("13. Exit");
+			System.out.println("9. Clear set");
+			System.out.println("10. Exit");
 
-			System.out.print("Enter your choice (1-13): ");
 			int choice = sc.nextInt();
 
 			switch (choice) {
 				case 1:
-					System.out.println("Enter an element to add: ");
-					int elementToAdd = sc.nextInt();
-					boolean added = set.add(elementToAdd);
-					System.out.println(added ? "Element added successfully!" : "Element already exists in the set.");
+					System.out.print("Enter element: ");
+					System.out.println(set.add(sc.nextInt()) ? "Added" : "Already exists");
 					break;
 
 				case 2:
-					System.out.println("Enter the element you want to remove: ");
-					int elementToRemove = sc.nextInt();
-					boolean removed = set.remove(elementToRemove);
-					System.out.println(removed ? "Element removed successfully!" : "Element not found in the set.");
+					System.out.print("Enter element: ");
+					System.out.println(set.remove(sc.nextInt()) ? "Removed" : "Not found");
 					break;
 
 				case 3:
-					System.out.println("Enter the element to check: ");
-					int checkElement = sc.nextInt();
-					System.out.println(
-							set.contains(checkElement) ? "Element exists in the set." : "Element does not exist in the set.");
+					System.out.print("Enter element: ");
+					System.out.println(set.contains(sc.nextInt()));
 					break;
 
 				case 4:
-					System.out.println(set.isEmpty() ? "Set is empty." : "Set is not empty.");
+					System.out.println(set.isEmpty());
 					break;
 
 				case 5:
-					System.out.println("Current elements in the set: " + set);
+					set.display();
 					break;
 
 				case 6:
-					System.out.println("Size of the set: " + set.size());
+					System.out.println("Size: " + set.size());
 					break;
 
 				case 7:
-					HashSet<Integer> clonedSet = new HashSet<>(set);
-					System.out.println("Cloned set: " + clonedSet);
+					HS cloned = set.cloneSet();
+					System.out.println("Cloned Set:");
+					cloned.display();
 					break;
 
 				case 8:
-					Integer[] array = set.toArray(new Integer[0]);
-					System.out.print("Set converted to array: ");
-					for (Integer num : array) {
-						System.out.print(num + " ");
+					Integer[] arr = set.toArray();
+					for (int val : arr) {
+						System.out.print(val + " ");
 					}
 					System.out.println();
 					break;
 
 				case 9:
-					System.out.print("Enter number of elements to remove in bulk: ");
-					int n2 = sc.nextInt();
-					HashSet<Integer> removeSet = new HashSet<>();
-					System.out.println("Enter " + n2 + " element(s):");
-					for (int i = 0; i < n2; i++)
-						removeSet.add(sc.nextInt());
-					set.removeAll(removeSet);
-					System.out.println("After bulk removal: " + set);
+					set.clear();
+					System.out.println("Set cleared");
 					break;
 
 				case 10:
-					set.clear();
-					System.out.println("Set cleared successfully!");
-					break;
-
-				case 11:
-					System.out.println("Iterating using enhanced for-loop:");
-					for (int num : set) {
-						System.out.println(num);
-					}
-					break;
-
-				case 12:
-					System.out.println("Iterating using Iterator:");
-					Iterator<Integer> it = set.iterator();
-					while (it.hasNext()) {
-						System.out.println(it.next());
-					}
-					break;
-
-				case 13:
 					exit = true;
-					System.out.println("Exiting...");
 					break;
 
 				default:
-					System.out.println("Invalid choice! Please try again.");
-					break;
+					System.out.println("Invalid choice");
 			}
 		}
 		sc.close();

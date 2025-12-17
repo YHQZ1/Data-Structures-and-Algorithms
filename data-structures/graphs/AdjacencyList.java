@@ -2,70 +2,65 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdjacencyList {
+
 	static class Edge {
-		int source;
-		int destination;
+		int src;
+		int dest;
 		int weight;
 
-		public Edge(int s, int d, int w) {
-			this.source = s;
-			this.destination = d;
-			this.weight = w;
+		Edge(int s, int d, int w) {
+			src = s;
+			dest = d;
+			weight = w;
 		}
 	}
 
-	public static void create(ArrayList<Edge>[] graph) {
-		Scanner sc = new Scanner(System.in);
-
+	static void createGraph(ArrayList<Edge>[] graph, Scanner sc) {
 		for (int i = 0; i < graph.length; i++) {
 			graph[i] = new ArrayList<>();
 		}
 
-		System.out.println("Creating a weighted undirected graph...");
-		System.out.println("Type 'x' to stop adding edges for a source vertex.\n");
-
 		for (int src = 0; src < graph.length; src++) {
-			System.out.println("Enter edges for source vertex " + src + ":");
-
 			while (true) {
-				System.out.print("Enter destination vertex (or 'x' to stop): ");
-				String input = sc.next();
-				if (input.equalsIgnoreCase("x"))
+				System.out.print("Enter destination for " + src + " (or -1 to stop): ");
+				int dest = sc.nextInt();
+				if (dest == -1)
 					break;
 
-				int dest;
-				try {
-					dest = Integer.parseInt(input);
-				} catch (NumberFormatException e) {
-					System.out.println("Invalid input. Enter an integer vertex or 'x'.");
+				if (dest < 0 || dest >= graph.length) {
+					System.out.println("Invalid vertex");
 					continue;
 				}
 
-				System.out.print("Enter weight of edge from " + src + " to " + dest + ": ");
-				int weight;
-				try {
-					weight = sc.nextInt();
-				} catch (Exception e) {
-					System.out.println("Invalid weight. Try again.");
-					sc.nextLine();
-					continue;
-				}
+				System.out.print("Enter weight: ");
+				int weight = sc.nextInt();
 
 				graph[src].add(new Edge(src, dest, weight));
+				graph[dest].add(new Edge(dest, src, weight));
 			}
 		}
-		sc.close();
 	}
 
-	public static void printGraph(ArrayList<Edge>[] graph) {
-		System.out.println("\nAdjacency List:");
+	static void printGraph(ArrayList<Edge>[] graph) {
 		for (int i = 0; i < graph.length; i++) {
 			System.out.print(i + " -> ");
 			for (Edge e : graph[i]) {
-				System.out.print("(" + e.destination + ", w=" + e.weight + ") ");
+				System.out.print("(" + e.dest + ", w=" + e.weight + ") ");
 			}
 			System.out.println();
 		}
+	}
+
+	static void printNeighbors(ArrayList<Edge>[] graph, int vertex) {
+		if (vertex < 0 || vertex >= graph.length) {
+			System.out.println("Invalid vertex");
+			return;
+		}
+		System.out.print("Neighbors of " + vertex + ": ");
+		for (Edge e : graph[vertex]) {
+			System.out.print("(" + e.dest + ", w=" + e.weight + ") ");
+		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -74,14 +69,19 @@ public class AdjacencyList {
 		System.out.print("Enter number of vertices: ");
 		int V = sc.nextInt();
 
+		if (V <= 0) {
+			System.out.println("Invalid number of vertices");
+			sc.close();
+			return;
+		}
+
 		ArrayList<Edge>[] graph = new ArrayList[V];
-		create(graph);
+		createGraph(graph, sc);
 		printGraph(graph);
 
-		System.out.print("\nNeighbors of vertex 2: ");
-		for (Edge e : graph[2]) {
-			System.out.print("(" + e.destination + ", w=" + e.weight + ") ");
-		}
+		System.out.print("Enter vertex to view neighbors: ");
+		int v = sc.nextInt();
+		printNeighbors(graph, v);
 
 		sc.close();
 	}
