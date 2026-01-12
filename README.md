@@ -27,7 +27,7 @@ All implementations are written from scratch (where appropriate) and organized b
 │   ├── graphs/
 │   │   ├── AdjacencyList
 │   │   └── AdjacencyMatrix
-│   ├── hashing/
+│   ├── hash-table/
 │   │   ├── HashSet (custom)
 │   │   └── HashMap (custom)
 │   └── heaps/
