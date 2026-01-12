@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class HS {
+public class HashSet {
 
 	private static final int INITIAL_CAPACITY = 16;
 	private static final double LOAD_FACTOR = 0.75;
@@ -9,7 +9,7 @@ public class HS {
 	private LinkedList<Integer>[] buckets;
 	private int size;
 
-	public HS() {
+	public HashSet() {
 		buckets = new LinkedList[INITIAL_CAPACITY];
 		size = 0;
 	}
@@ -77,8 +77,8 @@ public class HS {
 		return arr;
 	}
 
-	public HS cloneSet() {
-		HS newSet = new HS();
+	public HashSet cloneSet() {
+		HashSet newSet = new HashSet();
 		for (LinkedList<Integer> bucket : buckets) {
 			if (bucket != null) {
 				for (int val : bucket) {
@@ -116,7 +116,7 @@ public class HS {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		HS set = new HS();
+		HashSet set = new HashSet();
 		boolean exit = false;
 
 		while (!exit) {
@@ -163,7 +163,7 @@ public class HS {
 					break;
 
 				case 7:
-					HS cloned = set.cloneSet();
+					HashSet cloned = set.cloneSet();
 					System.out.println("Cloned Set:");
 					cloned.display();
 					break;

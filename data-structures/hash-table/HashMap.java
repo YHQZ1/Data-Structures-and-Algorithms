@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class HM {
+public class HashMap {
 
 	static class Entry {
 		int key;
@@ -19,7 +19,7 @@ public class HM {
 	private LinkedList<Entry>[] buckets;
 	private int size;
 
-	public HM() {
+	public HashMap() {
 		buckets = new LinkedList[INITIAL_CAPACITY];
 		size = 0;
 	}
@@ -124,7 +124,7 @@ public class HM {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		HM map = new HM();
+		HashMap map = new HashMap();
 		boolean exit = false;
 
 		while (!exit) {
